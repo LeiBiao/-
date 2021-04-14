@@ -631,8 +631,27 @@ console.log(Array.isArray(obj));   // false
 **slice()**
 
 ```js
-var arr = [45, 56, 28, 26, 281, 20, 618, 251];
-        console.log(arr.slice(1, 3));//[)索引是半开半闭区间
+var arr = [1,2,3,4,5,6,7];
+        console.log(arr,arr.slice(1, 3));//[)索引是半开半闭区间  原数组不会改变
+// [1, 2, 3, 4, 5, 6, 7]    
+// [2, 3]
+```
+
+也可以将伪数组转数组
+
+```js
+var str="1234";
+console.log(Array.prototype.slice.call(str))
+// ["1", "2", "3", "4"]
+```
+
+```js
+function text(){ 
+    console.log(Array.prototype.slice.call(arguments))
+};
+
+text(1,2,3,4)
+// [1, 2, 3, 4]
 ```
 
 
@@ -681,6 +700,14 @@ document.write(arr + "<br />")
 /*结果:
 George,John,Thomas,James,Adrew,Martin
 George,John,William,Thomas,James,Adrew,Martin*/
+
+
+//当只有一个参数时 和 slice类似起到 截取的作用 但是会改变原数组
+console.log(arr.splice(2))
+//["Thomas", "James", "Adrew", "Martin"]
+console.log(arr)
+// ["George", "John"]
+
 ```
 
 
@@ -755,7 +782,31 @@ var arr = ['1', '2', '3'];
 console.log(arr.join('-'));  //1-2-3
 ```
 
-## 
+## 数组扁平化
+
+调用数组的toString方法，将数组变为字符串然后再用split分割还原为数组
+
+```
+function flatten(arr) {
+    return arr.toString().split(',').map(function(item) {
+        return Number(item);
+    })
+} 
+
+```
+
+```
+function flatten(arr) {
+    while(arr.some(item=>Array.isArray(item))) {
+        arr = [].concat(...arr);
+    }
+    return arr;
+}
+```
+
+```js
+arr_flat = arr.flat(Infinity);
+```
 
 ## 字符串
 
